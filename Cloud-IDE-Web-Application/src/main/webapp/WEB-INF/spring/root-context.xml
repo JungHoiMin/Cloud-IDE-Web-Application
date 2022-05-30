@@ -42,4 +42,9 @@
 		<constructor-arg name="sqlSessionFactory"
 			ref="sqlSessionFactory"></constructor-arg>
 	</bean>
+	
+	<context:component-scan
+		base-package="org.tukorea.jhm.persistence"/>
+	<context:component-scan
+		base-package="org.tukorea.jhm.service"/>
 </beans>
