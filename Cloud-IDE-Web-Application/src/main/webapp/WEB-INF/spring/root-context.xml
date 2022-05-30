@@ -44,7 +44,7 @@
 	</bean>
 	
 	<context:component-scan
-		base-package="org.tukorea.jhm.persistence"/>
+		base-package="org.tukorea.ciwa.persistence"/>
 	<context:component-scan
-		base-package="org.tukorea.jhm.service"/>
+		base-package="org.tukorea.ciwa.service"/>
 </beans>
