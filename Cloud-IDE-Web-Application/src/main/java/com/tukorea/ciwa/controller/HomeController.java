@@ -1,4 +1,4 @@
-package com.tukorea.ciwa;
+package com.tukorea.ciwa.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
