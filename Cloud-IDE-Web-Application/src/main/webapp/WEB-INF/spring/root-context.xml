@@ -26,6 +26,11 @@
 		<property name="password" value="passwd" />
 		<property name="maxActive" value="5" />
 	</bean>
+	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
 
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -42,9 +47,11 @@
 		<constructor-arg name="sqlSessionFactory"
 			ref="sqlSessionFactory"></constructor-arg>
 	</bean>
-	
+
 	<context:component-scan
-		base-package="org.tukorea.ciwa.persistence"/>
+		base-package="com.tukorea.ciwa.persistence" />
 	<context:component-scan
-		base-package="org.tukorea.ciwa.service"/>
+		base-package="com.tukorea.ciwa.service" />
+	<context:component-scan
+		base-package="com.tukorea.ciwa.exception" />
 </beans>

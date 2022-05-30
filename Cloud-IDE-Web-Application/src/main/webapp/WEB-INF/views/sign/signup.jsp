@@ -11,7 +11,7 @@
 <body>
 	<div align=center>
 		<header>회원가입</header>
-		<form name=form1 action="http://localhost:8080/ciwa/sign/up"
+		<form name=form1 action="http://localhost:8080/ciwa/user/signup"
 			method="post">
 			<table>
 				<tr>
@@ -34,7 +34,7 @@
 					<input type="submit" name="submit" value="회원가입">
 				</dd>
 				<dd>
-					<c:url value="/sign/in" var="url" />
+					<c:url value="/user/signin" var="url" />
 					<input type="button" onclick="location.href='${url}'" value="취소">
 				</dd>
 			</dl>
