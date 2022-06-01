@@ -16,4 +16,5 @@ public interface FileService {
 
 	void deleteFile(String title) throws Exception;
 
+	void deleteAllFile(String userid) throws Exception;
 }

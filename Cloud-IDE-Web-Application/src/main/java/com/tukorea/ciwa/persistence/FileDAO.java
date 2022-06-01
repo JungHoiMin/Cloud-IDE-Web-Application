@@ -14,4 +14,6 @@ public interface FileDAO {
 
 	void delete(String title) throws Exception;
 
+	void deleteAll(String userid) throws Exception;
+
 }

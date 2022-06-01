@@ -56,6 +56,12 @@ public class FileServiceImpl implements FileService {
 		fileDAO.delete(title);
 	}
 
+	@Override
+	public void deleteAllFile(String userid) throws Exception {
+		deleteAllBody(userid);
+		fileDAO.deleteAll(userid);
+	}
+
 	public void saveBody(FileVO file, String body) throws Exception {
 		String filePath = path + file.getUserid() + "/" + file.getTitle();
 		BufferedOutputStream bs = null;
@@ -82,4 +88,18 @@ public class FileServiceImpl implements FileService {
 		}
 	}
 
+	public void deleteAllBody(String userid) throws Exception {
+		File folder = new File(path + userid);
+
+		try {
+			File[] files = folder.listFiles();
+
+			for (int i = 0; i < files.length; i++)
+				files[i].delete();
+			folder.delete();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 }

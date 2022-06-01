@@ -37,4 +37,9 @@ public class FileDAOImpl implements FileDAO {
 		sqlSession.insert(namespace + ".delete", title);
 	}
 
+	@Override
+	public void deleteAll(String userid) throws Exception {
+		sqlSession.insert(namespace + ".deleteAll", userid);
+	}
+
 }

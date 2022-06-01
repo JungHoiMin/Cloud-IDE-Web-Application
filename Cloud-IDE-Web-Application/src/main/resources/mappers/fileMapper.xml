@@ -27,7 +27,13 @@
 
 	<delete id="delete">
 		delete
-		from file_free
+		from file_table
 		where title = #{title}
+	</delete>
+
+	<delete id="deleteAll">
+		delete
+		from file_table
+		where userid = #{userid}
 	</delete>
 </mapper>
