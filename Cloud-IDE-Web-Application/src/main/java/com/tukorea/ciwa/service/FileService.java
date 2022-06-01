@@ -14,4 +14,6 @@ public interface FileService {
 
 	void updateFile(FileVO file, FileVO modified_file, String body) throws Exception;
 
+	void deleteFile(String title) throws Exception;
+
 }
