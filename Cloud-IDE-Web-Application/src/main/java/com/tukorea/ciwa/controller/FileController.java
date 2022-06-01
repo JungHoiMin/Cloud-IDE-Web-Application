@@ -45,6 +45,20 @@ public class FileController {
 		logger.info("/file/add URL에 GET 함수 호출 됨.");
 		return "file/file_info";
 	}
+	
+	@RequestMapping(value = { "/read" }, method = RequestMethod.GET)
+	public String fileReadGet(@RequestParam("title") String title, Model model, HttpServletRequest request)
+			throws Exception {
+		logger.info("/file/read URL에 GET 함수 호출 됨.");
+		HttpSession session = request.getSession();
+		FileVO file = fileService.readFile(title);
+		session.setAttribute("file", file);
+
+		String body = fileService.getBody(file);
+		model.addAttribute("body", body);
+
+		return "file/file_info";
+	}
 
 	@RequestMapping(value = { "/save" }, method = RequestMethod.POST)
 	public String saveFilePost(@ModelAttribute("modified_file") FileVO modified_file,

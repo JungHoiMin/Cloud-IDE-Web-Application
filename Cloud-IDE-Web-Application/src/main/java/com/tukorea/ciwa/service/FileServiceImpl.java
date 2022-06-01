@@ -2,6 +2,8 @@ package com.tukorea.ciwa.service;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
 
@@ -47,6 +49,27 @@ public class FileServiceImpl implements FileService {
 		fileDAO.add(modified_file);
 		deleteBody(file);
 		saveBody(modified_file, body);
+	}
+
+	@Override
+	public String getBody(FileVO file) throws Exception {
+		String filePath = path + file.getUserid() + "/" + file.getTitle();
+		FileInputStream fs = null;
+		try {
+			File check = new File(filePath);
+			if (!check.exists())
+				throw new FileNotFoundException(file.getTitle());
+			fs = new FileInputStream(filePath);
+			byte[] readBuffer = new byte[fs.available()];
+			while (fs.read(readBuffer) != -1) {
+			}
+			return new String(readBuffer);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			fs.close();
+		}
+		return null;
 	}
 
 	@Override
@@ -101,4 +124,5 @@ public class FileServiceImpl implements FileService {
 		}
 
 	}
+
 }
