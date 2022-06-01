@@ -12,4 +12,6 @@ public interface FileService {
 
 	FileVO readFile(String title) throws Exception;
 
+	void updateFile(FileVO file, FileVO modified_file, String body) throws Exception;
+
 }

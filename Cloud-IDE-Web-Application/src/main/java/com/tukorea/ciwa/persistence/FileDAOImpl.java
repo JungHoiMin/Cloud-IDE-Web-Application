@@ -21,15 +21,20 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	public void add(FileVO file) {
+	public void add(FileVO file) throws Exception {
 		sqlSession.insert(namespace + ".insert", file);
 
 	}
 
 	@Override
-	public FileVO read(String title) {
+	public FileVO read(String title) throws Exception {
 		FileVO file = sqlSession.selectOne(namespace + ".selectBytitle", title);
 		return file;
+	}
+
+	@Override
+	public void delete(String title) throws Exception {
+		sqlSession.insert(namespace + ".delete", title);
 	}
 
 }

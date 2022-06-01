@@ -8,8 +8,10 @@ public interface FileDAO {
 
 	List<FileVO> readListByUserid(String id) throws Exception;
 
-	void add(FileVO file);
+	void add(FileVO file) throws Exception;
 
-	FileVO read(String title);
+	FileVO read(String title) throws Exception;
+
+	void delete(String title) throws Exception;
 
 }

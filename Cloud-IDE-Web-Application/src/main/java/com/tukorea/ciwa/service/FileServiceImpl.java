@@ -31,4 +31,9 @@ public class FileServiceImpl implements FileService {
 		fileDAO.add(file);
 	}
 
+	@Override
+	public void updateFile(FileVO file, FileVO modified_file, String body) throws Exception {
+		fileDAO.delete(file.getTitle());
+		fileDAO.add(modified_file);
+	}
 }

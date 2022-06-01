@@ -18,9 +18,16 @@
 		values (#{title}, #{userid}, #{type}, #{modifyDate})
 	</insert>
 
-	<select id="selectBytitle" resultType="com.tukorea.ciwa.domain.FileVO">
+	<select id="selectBytitle"
+		resultType="com.tukorea.ciwa.domain.FileVO">
 		select *
 		from file_table
 		where title = #{title}
 	</select>
+
+	<delete id="delete">
+		delete
+		from file_free
+		where title = #{title}
+	</delete>
 </mapper>
