@@ -8,4 +8,6 @@ public interface UserDAO {
 
 	void add(UserVO user) throws Exception;
 
+	void delete(String id) throws Exception;
+
 }

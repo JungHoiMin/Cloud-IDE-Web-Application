@@ -59,4 +59,12 @@ public class UserController {
 
 		return "sign/signin";
 	}
+
+	@RequestMapping(value = { "/userDelete" }, method = RequestMethod.GET)
+	public String userDeleteGet(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		UserVO user = (UserVO) session.getAttribute("user");
+		userService.deleteUser(user.getId());
+		return "redirect:/user/signin";
+	}
 }

@@ -8,4 +8,6 @@ public interface UserService {
 
 	void addUser(UserVO user) throws Exception;
 
+	void deleteUser(String id) throws Exception;
+
 }

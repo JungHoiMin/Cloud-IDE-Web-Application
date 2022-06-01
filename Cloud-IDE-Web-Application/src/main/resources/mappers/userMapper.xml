@@ -13,4 +13,7 @@
 		select * from user_table where id = #{id}
 	</select>
 	
+	<delete id="delete">
+		delete from user_table where id = #{id}
+	</delete>
 </mapper>

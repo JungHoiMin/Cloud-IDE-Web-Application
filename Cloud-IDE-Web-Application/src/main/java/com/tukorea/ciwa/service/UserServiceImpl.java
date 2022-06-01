@@ -30,4 +30,9 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public void deleteUser(String id) throws Exception {
+		userDAO.delete(id);
+	}
+
 }
