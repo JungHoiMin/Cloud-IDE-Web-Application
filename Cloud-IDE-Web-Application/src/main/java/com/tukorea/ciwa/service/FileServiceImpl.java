@@ -37,7 +37,6 @@ public class FileServiceImpl implements FileService {
 		if (readFile(file.getTitle()) != null)
 			throw new AlreadyExistFileException(file.getTitle());
 		fileDAO.add(file);
-		deleteBody(file);
 		saveBody(file, body);
 	}
 

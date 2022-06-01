@@ -17,7 +17,7 @@ public class CiwaAspect {
 	private static final Logger logger = LoggerFactory.getLogger(CiwaAspect.class);
 	private static final String path = "C:/CIWA";
 
-	@Before("execution(* com.tukorea.ciwa.service.MemberServiceImpl.*(..))")
+	@Before("execution(* com.tukorea.ciwa.service.UserServiceImpl.*(..))")
 	public void checkMainDirectory() throws Exception {
 		File projectFolder = new File(path);
 		File usersFolder = new File(path + "/users");
