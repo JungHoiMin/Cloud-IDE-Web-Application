@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tukorea.ciwa.domain.FileVO;
 import com.tukorea.ciwa.domain.UserVO;
@@ -64,6 +65,13 @@ public class FileController {
 			fileService.addFile(modified_file, body);
 		}
 
+		return "redirect:/file/list";
+	}
+
+	@RequestMapping(value = { "/delete" }, method = RequestMethod.GET)
+	public String fileDeleteGet(@RequestParam("title") String title) throws Exception {
+		logger.info("/file/delete URL에 GET 함수 호출 됨.");
+		fileService.deleteFile(title);
 		return "redirect:/file/list";
 	}
 }
