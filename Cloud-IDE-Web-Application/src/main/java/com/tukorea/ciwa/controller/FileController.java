@@ -35,4 +35,10 @@ public class FileController {
 		session.setAttribute("file", null);
 		return "file/file_list";
 	}
+	
+	@RequestMapping(value = { "/add" }, method = RequestMethod.GET)
+	public String fileAddGet(Model model) throws Exception {
+		logger.info("/file/add URL에 GET 함수 호출 됨.");
+		return "file/file_info";
+	}
 }
