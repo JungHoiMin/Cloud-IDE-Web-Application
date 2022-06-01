@@ -14,6 +14,8 @@ import com.tukorea.ciwa.persistence.FileDAO;
 
 @Service
 public class FileServiceImpl implements FileService {
+	private static final String path = "C:/CIWA/users/";
+	
 	@Autowired
 	private FileDAO fileDAO;
 
@@ -32,6 +34,7 @@ public class FileServiceImpl implements FileService {
 		if (readFile(file.getTitle()) != null)
 			throw new AlreadyExistFileException(file.getTitle());
 		fileDAO.add(file);
+		saveBody(file, body);
 	}
 
 	@Override
@@ -39,5 +42,20 @@ public class FileServiceImpl implements FileService {
 	public void updateFile(FileVO file, FileVO modified_file, String body) throws Exception {
 		fileDAO.delete(file.getTitle());
 		fileDAO.add(modified_file);
+		saveBody(modified_file, body);
+	}
+	
+	public void saveBody(FileVO file, String body) throws Exception {
+		String filePath = path + file.getUserid() + "/" + file.getTitle();
+		BufferedOutputStream bs = null;
+		body = body + "\n";
+		try {
+			bs = new BufferedOutputStream(new FileOutputStream(filePath));
+			bs.write(body.getBytes());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			bs.close();
+		}
 	}
 }
