@@ -8,4 +8,8 @@ public interface FileService {
 
 	List<FileVO> readFileListByUserid(String id) throws Exception;
 
+	void addFile(FileVO file, String body) throws Exception;
+
+	FileVO readFile(String title) throws Exception;
+
 }

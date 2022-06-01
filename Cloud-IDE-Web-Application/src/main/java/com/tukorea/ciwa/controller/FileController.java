@@ -1,5 +1,7 @@
 package com.tukorea.ciwa.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,10 +38,28 @@ public class FileController {
 		session.setAttribute("file", null);
 		return "file/file_list";
 	}
-	
+
 	@RequestMapping(value = { "/add" }, method = RequestMethod.GET)
 	public String fileAddGet(Model model) throws Exception {
 		logger.info("/file/add URL에 GET 함수 호출 됨.");
 		return "file/file_info";
+	}
+
+	@RequestMapping(value = { "/save" }, method = RequestMethod.POST)
+	public String saveFilePost(@ModelAttribute("saved_file") FileVO saved_file, @ModelAttribute("body") String body,
+			Model model, HttpServletRequest request) throws Exception {
+		logger.info("/file/save URL에 POST 함수 호출 됨.");
+
+		HttpSession session = request.getSession();
+		UserVO user = (UserVO) session.getAttribute("user");
+		FileVO file = (FileVO) session.getAttribute("file");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar now = Calendar.getInstance();
+		saved_file.setModifyDate(sdf.format(now.getTime()));
+		saved_file.setUserid(user.getId());
+
+		fileService.addFile(saved_file, body);
+		
+		return "redirect:/file/list";
 	}
 }

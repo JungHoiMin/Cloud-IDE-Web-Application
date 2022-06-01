@@ -21,4 +21,10 @@ public class CIWAControllerAdvice {
 		e.printStackTrace();
 		return "error/user_not_found";
 	}
+	
+	@ExceptionHandler(AlreadyExistUserException.class)
+	public String handelException(AlreadyExistUserException e) {
+		e.printStackTrace();
+		return "error/user_already_exist";
+	}
 }

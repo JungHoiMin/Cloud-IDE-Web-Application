@@ -12,12 +12,24 @@ import com.tukorea.ciwa.domain.FileVO;
 public class FileDAOImpl implements FileDAO {
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	private static final String namespace = "com.tukorea.ciwa.mapper.FileMapper";
 
 	@Override
 	public List<FileVO> readListByUserid(String id) throws Exception {
 		return sqlSession.selectList(namespace + ".selectAllByuserid", id);
+	}
+
+	@Override
+	public void add(FileVO file) {
+		sqlSession.insert(namespace + ".insert", file);
+
+	}
+
+	@Override
+	public FileVO read(String title) {
+		FileVO file = sqlSession.selectOne(namespace + ".selectBytitle", title);
+		return file;
 	}
 
 }

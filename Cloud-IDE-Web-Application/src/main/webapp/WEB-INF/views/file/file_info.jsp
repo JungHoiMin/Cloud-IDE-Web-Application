@@ -5,7 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>새로 만들기</title>
+<title><c:choose>
+		<c:when test="${empty file}">새로 만들기</c:when>
+		<c:otherwise>${file.title} 파일</c:otherwise>
+	</c:choose></title>
 <link rel="stylesheet" href="../resources/ciwa.css" type="text/css"></link>
 </head>
 <script type="text/javascript">
@@ -26,17 +29,21 @@
 				</tr>
 				<tr>
 					<th>언어</th>
-					<td>
-						<select name="type">
+					<td><select name="type">
 							<option value="python">python</option>
-							<option value="java">java</option>
-						</select>
-					</td>
+							<option value="java"
+								<c:if test="${file.type eq 'java'}">selected</c:if>>java</option>
+					</select></td>
 					<th>사용자 ID</th>
 					<td><c:out value="${user.id}"></c:out>
 				</tr>
 			</table>
 			<br> <input type="submit" name="submit" value="저장">
+
+			<c:if test="${not empty file }">
+				<input type="submit" value="실행"
+					onclick='return postForm(this.form);' />
+			</c:if>
 
 			<c:url value="/file/list" var="url" />
 			<input type="button" onclick="location.href='${url}'"
@@ -44,11 +51,20 @@
 
 			<fieldset>
 				<legend>코드</legend>
-				<textarea name="body" cols="105" rows="20"
+				<textarea name="body" cols="105" rows="15"
 					onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}"><c:out
-						value="${body}" />
-				</textarea>
+						value="${body}" /></textarea>
 			</fieldset>
+			<c:choose>
+				<c:when test="${not empty file}">
+					<fieldset>
+						<legend>실행 결과</legend>
+						<textarea readonly="readonly" cols="105" rows="15"><c:out
+								value="${result}" />
+						</textarea>
+					</fieldset>
+				</c:when>
+			</c:choose>
 		</form>
 	</div>
 </body>
