@@ -16,7 +16,7 @@
 	</div>
 
 	<div style="padding: 40px 40px 10px 0px; float: right">
-		<c:url value="/user/userDelete" var="url" />
+		<c:url value="/userDelete" var="url" />
 		<input type="button" onclick="location.href='${url}'" value="사용자 탈퇴">
 	</div>
 
