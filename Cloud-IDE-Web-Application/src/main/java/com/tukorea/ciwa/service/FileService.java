@@ -21,4 +21,6 @@ public interface FileService {
 	String getBody(FileVO file) throws Exception;
 
 	String executeBody(FileVO file) throws Exception;
+
+	void copyFile(FileVO file, String new_title) throws Exception;
 }

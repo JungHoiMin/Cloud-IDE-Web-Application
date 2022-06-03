@@ -108,4 +108,24 @@ public class FileController {
 
 		return "file/file_info";
 	}
+
+	@RequestMapping(value = { "/copy" }, method = RequestMethod.GET)
+	public String fileCopyGet(@RequestParam("title") String title, HttpServletRequest request) throws Exception {
+		logger.info("/file/copy URL에 GET 함수 호출 됨.");
+
+		HttpSession session = request.getSession();
+		FileVO file = fileService.readFile(title);
+		session.setAttribute("file", file);
+		return "file/file_copy";
+	}
+
+	@RequestMapping(value = { "/copy" }, method = RequestMethod.POST)
+	public String fileCopyPost(@ModelAttribute("title") String new_title, HttpServletRequest request) throws Exception {
+		logger.info("/file/copy URL에 POST 함수 호출 됨.");
+
+		HttpSession session = request.getSession();
+		FileVO file = (FileVO) session.getAttribute("file");
+		fileService.copyFile(file, new_title);
+		return "redirect:/file/list";
+	}
 }

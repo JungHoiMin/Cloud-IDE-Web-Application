@@ -124,6 +124,13 @@ public class FileServiceImpl implements FileService {
 		return sb.toString();
 	}
 
+	@Override
+	public void copyFile(FileVO file, String new_title) throws Exception {
+		String body = getBody(file);
+		file.setTitle(new_title);
+		addFile(file, body);
+	}
+
 	public void saveBody(FileVO file, String body) throws Exception {
 		String filePath = path + file.getUserid() + "/" + file.getTitle();
 		BufferedOutputStream bs = null;
