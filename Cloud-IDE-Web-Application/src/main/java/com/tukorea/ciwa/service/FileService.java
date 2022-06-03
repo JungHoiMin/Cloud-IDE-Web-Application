@@ -19,4 +19,6 @@ public interface FileService {
 	void deleteAllFile(String userid) throws Exception;
 
 	String getBody(FileVO file) throws Exception;
+
+	String executeBody(FileVO file) throws Exception;
 }

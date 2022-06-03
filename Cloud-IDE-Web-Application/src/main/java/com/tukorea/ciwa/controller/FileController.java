@@ -45,7 +45,7 @@ public class FileController {
 		logger.info("/file/add URL에 GET 함수 호출 됨.");
 		return "file/file_info";
 	}
-	
+
 	@RequestMapping(value = { "/read" }, method = RequestMethod.GET)
 	public String fileReadGet(@RequestParam("title") String title, Model model, HttpServletRequest request)
 			throws Exception {
@@ -69,7 +69,7 @@ public class FileController {
 		UserVO user = (UserVO) session.getAttribute("user");
 		modified_file.setUserid(user.getId());
 		FileVO file = (FileVO) session.getAttribute("file");
-		
+
 		if (file != null) {
 			fileService.updateFile(file, modified_file, body);
 		} else {
@@ -84,5 +84,28 @@ public class FileController {
 		logger.info("/file/delete URL에 GET 함수 호출 됨.");
 		fileService.deleteFile(title);
 		return "redirect:/file/list";
+	}
+
+	@RequestMapping(value = { "/execute" }, method = RequestMethod.POST)
+	public String excuteFilePost(@ModelAttribute("saved_file") FileVO saved_file, @ModelAttribute("body") String body,
+			Model model, HttpServletRequest request) throws Exception {
+		logger.info("/file/execute URL에 POST 함수 호출 됨.");
+
+		HttpSession session = request.getSession();
+		UserVO user = (UserVO) session.getAttribute("user");
+		saved_file.setUserid(user.getId());
+		FileVO file = (FileVO) session.getAttribute("file");
+
+		if (file != null) {
+			fileService.updateFile(file, saved_file, body);
+		} else {
+			fileService.addFile(saved_file, body);
+		}
+
+		String result = fileService.executeBody(saved_file);
+		session.setAttribute("file", saved_file);
+		model.addAttribute("result", result);
+
+		return "file/file_info";
 	}
 }

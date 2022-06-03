@@ -1,10 +1,12 @@
 package com.tukorea.ciwa.service;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -88,6 +90,40 @@ public class FileServiceImpl implements FileService {
 		fileDAO.deleteAll(userid);
 	}
 
+	@Override
+	public String executeBody(FileVO file) throws Exception {
+		String filePath = path + file.getUserid() + "/" + file.getTitle();
+		Runtime rt = Runtime.getRuntime();
+		Process pc = null;
+		BufferedReader br = null;
+		StringBuffer sb = null;
+		try {
+			if (file.getType().equals("python")) {
+				pc = rt.exec("python " + filePath);
+			} else if (file.getType().equals("java")) {
+				pc = rt.exec("javac " + filePath + " -encoding UTF-8");
+				pc.waitFor();
+				pc = rt.exec("java -cp " + path + file.getUserid() + "/ "
+						+ file.getTitle().substring(0, file.getTitle().length() - 5));
+			}
+
+			br = new BufferedReader(new InputStreamReader(pc.getInputStream(), "MS949"));
+			String line;
+			sb = new StringBuffer();
+			while ((line = br.readLine()) != null) {
+				sb.append(line);
+				sb.append('\r');
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pc.waitFor();
+			br.close();
+			pc.destroy();
+		}
+		return sb.toString();
+	}
+
 	public void saveBody(FileVO file, String body) throws Exception {
 		String filePath = path + file.getUserid() + "/" + file.getTitle();
 		BufferedOutputStream bs = null;
@@ -128,11 +164,10 @@ public class FileServiceImpl implements FileService {
 		}
 
 	}
-	
-	public void setDateTime(FileVO file) throws Exception{
+
+	public void setDateTime(FileVO file) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar now = Calendar.getInstance();
 		file.setModifyDate(sdf.format(now.getTime()));
 	}
-
 }
