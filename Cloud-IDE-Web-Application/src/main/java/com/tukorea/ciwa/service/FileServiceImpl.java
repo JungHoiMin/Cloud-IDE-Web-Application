@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,7 @@ public class FileServiceImpl implements FileService {
 	public void addFile(FileVO file, String body) throws Exception {
 		if (readFile(file.getTitle()) != null)
 			throw new AlreadyExistFileException(file.getTitle());
+		setDateTime(file);
 		fileDAO.add(file);
 		saveBody(file, body);
 	}
@@ -45,6 +48,7 @@ public class FileServiceImpl implements FileService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, timeout = 10)
 	public void updateFile(FileVO file, FileVO modified_file, String body) throws Exception {
+		setDateTime(modified_file);
 		fileDAO.delete(file.getTitle());
 		fileDAO.add(modified_file);
 		deleteBody(file);
@@ -123,6 +127,12 @@ public class FileServiceImpl implements FileService {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void setDateTime(FileVO file) throws Exception{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar now = Calendar.getInstance();
+		file.setModifyDate(sdf.format(now.getTime()));
 	}
 
 }

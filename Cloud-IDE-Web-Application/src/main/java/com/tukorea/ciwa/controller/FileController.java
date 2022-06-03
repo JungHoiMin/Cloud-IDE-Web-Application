@@ -67,12 +67,9 @@ public class FileController {
 
 		HttpSession session = request.getSession();
 		UserVO user = (UserVO) session.getAttribute("user");
-		FileVO file = (FileVO) session.getAttribute("file");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Calendar now = Calendar.getInstance();
-		modified_file.setModifyDate(sdf.format(now.getTime()));
 		modified_file.setUserid(user.getId());
-
+		FileVO file = (FileVO) session.getAttribute("file");
+		
 		if (file != null) {
 			fileService.updateFile(file, modified_file, body);
 		} else {
