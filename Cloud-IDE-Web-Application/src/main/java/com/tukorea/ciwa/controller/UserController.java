@@ -25,7 +25,7 @@ public class UserController {
 
 	@RequestMapping(value = { "/signin" }, method = RequestMethod.GET)
 	public String signInGet(HttpServletRequest request) throws Exception {
-		logger.info("/user/signin URL¿¡ GET ÇÔ¼ö È£Ãâ µÊ.");
+		logger.info("/user/signin URLì— GET í•¨ìˆ˜ í˜¸ì¶œ ë¨.");
 		HttpSession session = request.getSession();
 		session.setAttribute("user", null);
 		return "sign/signin";
@@ -34,11 +34,11 @@ public class UserController {
 	@RequestMapping(value = { "/signin" }, method = RequestMethod.POST)
 	public String signInPost(@ModelAttribute("user") UserVO user, Model model, HttpServletRequest request)
 			throws Exception {
-		logger.info("/user/signin URL¿¡ POST ÇÔ¼ö È£Ãâ µÊ.");
+		logger.info("/user/signin URLì— POST í•¨ìˆ˜ í˜¸ì¶œ ë¨.");
 		HttpSession session = request.getSession();
 		UserVO check = userService.readUser(user.getId());
 		if (!user.getPasswd().equals(check.getPasswd())) {
-			model.addAttribute("msg", "Àß¸øµÈ ºñ¹Ğ¹øÈ£ ÀÔ´Ï´Ù.");
+			model.addAttribute("msg", "ì˜ëª»ëœ ë¹„ë°€ë²ˆí˜¸ ì…ë‹ˆë‹¤.");
 			model.addAttribute("user", null);
 			return "error/error";
 		}
@@ -48,13 +48,13 @@ public class UserController {
 
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.GET)
 	public String signUPGet() throws Exception {
-		logger.info("/user/signup URL¿¡ GET ÇÔ¼ö È£Ãâ µÊ.");
+		logger.info("/user/signup URLì— GET í•¨ìˆ˜ í˜¸ì¶œ ë¨.");
 		return "sign/signup";
 	}
 
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
 	public String signUPPost(@ModelAttribute("user") UserVO user, HttpServletRequest request) throws Exception {
-		logger.info("/user/signup URL¿¡ POST ÇÔ¼ö È£Ãâ µÊ.");
+		logger.info("/user/signup URLì— POST í•¨ìˆ˜ í˜¸ì¶œ ë¨.");
 		userService.addUser(user);
 
 		return "sign/signin";

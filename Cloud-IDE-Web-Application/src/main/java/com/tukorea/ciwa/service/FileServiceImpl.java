@@ -23,7 +23,7 @@ import com.tukorea.ciwa.persistence.FileDAO;
 
 @Service
 public class FileServiceImpl implements FileService {
-	private static final String path = "C:/CIWA/users/";
+	private static final String path = "C:/ciwa/users/";
 
 	@Autowired
 	private FileDAO fileDAO;

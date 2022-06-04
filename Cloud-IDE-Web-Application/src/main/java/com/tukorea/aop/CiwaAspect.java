@@ -15,7 +15,7 @@ import com.tukorea.ciwa.domain.FileVO;
 @Component
 public class CiwaAspect {
 	private static final Logger logger = LoggerFactory.getLogger(CiwaAspect.class);
-	private static final String path = "C:/CIWA";
+	private static final String path = "C:/ciwa";
 
 	@Before("execution(* com.tukorea.ciwa.service.UserServiceImpl.*(..))")
 	public void checkMainDirectory() throws Exception {
@@ -25,14 +25,14 @@ public class CiwaAspect {
 			if (!projectFolder.exists()) {
 				try {
 					projectFolder.mkdir();
-					logger.info(path + " Æú´õ°¡ »ı¼ºµÇ¾ú½À´Ï´Ù.");
+					logger.info(path + " í´ë”ê°€ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤..");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 			try {
 				usersFolder.mkdir();
-				logger.info(path + "/users Æú´õ°¡ »ı¼ºµÇ¾ú½À´Ï´Ù.");
+				logger.info(path + "/users í´ë”ê°€ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -50,7 +50,7 @@ public class CiwaAspect {
 		if (!folder.exists()) {
 			try {
 				folder.mkdir();
-				logger.info(folderPath + " Æú´õ°¡ »ı¼ºµÇ¾ú½À´Ï´Ù.");
+				logger.info(folderPath + " í´ë”ê°€ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
